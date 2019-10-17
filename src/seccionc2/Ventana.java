@@ -17,8 +17,8 @@ public class Ventana extends JFrame{
 
     
     private JButton empezar, parar;
-    private JLabel tex1, tex2;
-    private JTextArea noHilos, tiempo;
+    private JLabel tex1, tex2, tex3,tex4;
+    private JTextArea noHilos, texTiempoCons, texTiempoProd, tamanoBufer;
     JTable table;
     Canvas c1;
     
@@ -28,19 +28,24 @@ public class Ventana extends JFrame{
     
     public Ventana(Controlador esc){
         super("Ventana");
-        setSize(300, 100);      
+        setSize(300, 200);      
         
         BorderLayout border = new BorderLayout();
         setLayout(border);
         JPanel panel = new JPanel();
-        GridLayout grid = new GridLayout(3,2);
+        GridLayout grid = new GridLayout(5,2);
         panel.setLayout(grid);
         add(panel, BorderLayout.CENTER);
         
         noHilos = new JTextArea("0");
-        tiempo = new JTextArea();
+        texTiempoCons = new JTextArea();
+        texTiempoProd = new JTextArea();
+        tamanoBufer = new JTextArea();
+        
         tex1 = new JLabel("No. Hilos:");
-        tex2 = new JLabel("No. tiempo:");
+        tex2 = new JLabel("No. tiempo cons:");
+        tex3 = new JLabel("No. tiempo prod:");
+        tex4 = new JLabel("Tamano del bufer:");
         
         empezar = new JButton("Iniciar");
         empezar.addActionListener(esc);
@@ -50,7 +55,12 @@ public class Ventana extends JFrame{
         panel.add(tex1);
         panel.add(noHilos);
         panel.add(tex2);
-        panel.add(tiempo);
+        panel.add(texTiempoCons);
+        panel.add(tex3);
+        panel.add(texTiempoProd);
+        panel.add(tex4);
+        panel.add(tamanoBufer);
+        
         panel.add(empezar);
         panel.add(parar);
         
@@ -65,7 +75,13 @@ public class Ventana extends JFrame{
         return Integer.parseInt(noHilos.getText());
     }
     public int getTiempo(){
-        return Integer.parseInt(tiempo.getText());
+        return Integer.parseInt(texTiempoCons.getText());
+    }
+    public int getTiempoProd(){
+        return Integer.parseInt(texTiempoProd.getText());
+    }
+    public int gettamBufer(){
+        return Integer.parseInt(tamanoBufer.getText());
     }
     public JTable getTable(){
         return table;

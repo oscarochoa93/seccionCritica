@@ -15,7 +15,7 @@ import javax.swing.JTable;
  */
 public class Controlador implements ActionListener{
     
-    Consumidor[] hilo;
+    Thread[] hilo;
 
     private boolean empezar = false;
 
@@ -30,8 +30,11 @@ public class Controlador implements ActionListener{
         
         if (e.getActionCommand().equals("Alto")){
             
-            for(int i=0; i<hilo.length; i++){
-                hilo[i].kill();
+            for(int i=0; i<hilo.length/2; i++){
+                ((Consumidor)hilo[i]).kill();
+            }
+            for(int i=(hilo.length/2)+1; i<hilo.length; i++){
+                ((Productor)hilo[i]).kill();
             }
             System.out.println("click en matar");
         }
@@ -39,7 +42,7 @@ public class Controlador implements ActionListener{
         
     }
     
-    void getHilo(Consumidor[] h){
+    void getHilo(Thread[] h){
         hilo = h;
     }
     

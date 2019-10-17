@@ -9,8 +9,8 @@ package seccionc2;
  *
  * @author oscar
  */
-class Consumidor extends Thread {
-    boolean condicion=true;
+public class Productor extends Thread{
+     boolean condicion=true;
     int id;
     int tiempo;
     int conteo;
@@ -18,21 +18,19 @@ class Consumidor extends Thread {
     Tabla tabla;
     
     
-    public Consumidor(Caja x, int t, Tabla ta, int nH){
+    public Productor (Caja x, int t, Tabla ta, int nH){
         caja = x;
         tiempo = t;
         tabla = ta;
         id = nH;
     }
     
-    
-    @Override
     public void run(){
-        System.out.println("consumidor ->"+id);
+        System.out.println("productor ->"+id);
         while(condicion){
 
             esperando();
-            caja.get(id,tiempo);
+            caja.put(id, tiempo);
             conteo++;
             try {
                 Thread.sleep(tiempo);
@@ -58,7 +56,6 @@ class Consumidor extends Thread {
     }
     
     public void esperando (){
-        System.out.println("");
         
         tabla.model.setValueAt(conteo +" ", id, 1);
         tabla.model.setValueAt("esperando", id, 2);
@@ -78,4 +75,5 @@ class Consumidor extends Thread {
         tabla.model.setValueAt("0", id, 4);
         tabla.model.setValueAt("dead", id, 5);
     }
+    
 }

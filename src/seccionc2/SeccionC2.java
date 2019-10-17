@@ -13,13 +13,17 @@ import javax.swing.JTable;
  */
 public class SeccionC2 {
     private static Controlador control;
-    private static Consumidor[] consumidor;
+    private static Thread[] hilos;
     private static Caja caja;
     private static Ventana win;
     private static Tabla tablita;
     
     private static boolean empezar=false;
     static int noHilos;
+    static int tiempo;
+    static int timepoProd;
+    static int tamBuf;
+    
     static JTable tabla;
 
     public static void main(String[] args) {
@@ -34,7 +38,9 @@ public class SeccionC2 {
         if(empezar){
                       
             noHilos=win.getNoHilos();
-            int tiempo=win.getTiempo();
+            tiempo=win.getTiempo();
+            timepoProd=win.getTiempoProd();
+            tamBuf=win.gettamBufer();
             
             tablita = new Tabla(noHilos, control);
             tablita.create();
@@ -42,18 +48,25 @@ public class SeccionC2 {
             JTable tabla=win.getTable();
           
             
-            consumidor = new Consumidor[noHilos];
-            
-            for(int i=0; i<noHilos;i++){
+            hilos = new Thread[noHilos];
+
+            caja.recibeTamBufer(tamBuf);
+            for(int i=0; i<noHilos/2;i++){
+                System.out.println("no for->"+i);
                 
-                consumidor[i] = new Consumidor(caja, tiempo, tablita, i);
-                consumidor[i].start();
-                //control.getHilo(consumidor[i]);
-                
-                caja.recibeNoHilos(i);
-                
+                hilos[i] = new Consumidor(caja, tiempo, tablita, i);
+                hilos[i].start();
+
+                                
             }
-            control.getHilo(consumidor);
+            for(int j=(noHilos/2); j<noHilos;j++){
+           
+                hilos[j] = new Productor(caja, timepoProd, tablita, j);
+                hilos[j].start();
+                                
+            }
+
+            control.getHilo(hilos);
         }
     }
     
