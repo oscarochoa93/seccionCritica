@@ -33,7 +33,7 @@ public class Controlador implements ActionListener{
             for(int i=0; i<hilo.length/2; i++){
                 ((Consumidor)hilo[i]).kill();
             }
-            for(int i=(hilo.length/2)+1; i<hilo.length; i++){
+            for(int i=(hilo.length/2); i<hilo.length; i++){
                 ((Productor)hilo[i]).kill();
             }
             System.out.println("click en matar");

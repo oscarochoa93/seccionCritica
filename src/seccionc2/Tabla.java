@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Tabla extends JFrame{
 
-    private String[] header = { "Nombre", "Accesos", "Esperando", "Sección Crítica", "Muriendo", "Muerto" }; 
+    private String[] header = { "Nombre", "NO. de Accesos", "Esperando", "SC", "Muriendo", "Murio" }; 
     private static String[][] data;
     private int noHilos;
     public DefaultTableModel model;
@@ -24,7 +24,6 @@ public class Tabla extends JFrame{
     Controlador control;
     
     
-    // CONSTRUCTOR
     public Tabla(int h, Controlador esc) { 
         super("Tabla");
         
@@ -36,7 +35,6 @@ public class Tabla extends JFrame{
         
     }
     
-    // CREATE TABLE
     public void create() {
 
         data = new String[noHilos][6];
